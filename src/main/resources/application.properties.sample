@@ -1,0 +1,13 @@
+server.port=<port>
+
+spring.h2.console.enabled=true
+spring.datasource.name=library
+spring.datasource.url=jdbc:h2:file:./data/library;
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=<user>
+spring.datasource.password=<password>
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto = update
+
+library.app.jwtSecret= <secret>
+library.app.jwtExpirationMs= <long_time>
