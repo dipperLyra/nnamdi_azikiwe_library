@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -41,9 +42,14 @@ public class UserController {
         User user = new User(signUpRequest.getUsername(),
                 encoder.encode(signUpRequest.getPassword()));
 
-        Role role = roleRepository.findByName("user")
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        user.setRole(role);
+        Optional<Role> roleExists = roleRepository.findByName("user");
+        if (roleExists.isPresent()) {
+            user.setRole(roleExists.get());
+        } else {
+            Role role = roleRepository.save(new Role("user"));
+            user.setRole(role);
+        }
+
         userRepository.save(user);
 
         return  "Successful, user created!";
@@ -58,10 +64,5 @@ public class UserController {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         return "Authentication successful. Token: " + jwt;
-    }
-
-    @PostMapping("/role")
-    public Role role(@RequestBody Role role) {
-        return roleRepository.save(role);
     }
 }

@@ -18,7 +18,7 @@ Specifically:
    `$ docker build -f ./Dockerfile -t nnamdi_azikiwe_lib_img .`
 
 4. Run docker image.
-   `docker run -p 8033:8033 -v data:/tmp/data nnamdi_azikiwe_lib_img`
+   `docker run -p 8033:8033 nnamdi_azikiwe_lib_img`
 
 [Note: H2 in memory storage is being used though for persistence I'm writing the data to file]
 
