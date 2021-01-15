@@ -1,5 +1,6 @@
 package com.library.nnamdi_azikiwe.model.entity;
 
+import com.library.nnamdi_azikiwe.model.requests.AuthenticationRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,11 @@ public class User {
 
     @OneToOne
     private Role role;
+
+    public User(AuthenticationRequest authenticationRequest) {
+        this.username = authenticationRequest.getUsername();
+        this.password = authenticationRequest.getPassword();
+    }
 
     public User(String username, String password) {
         this.username = username;
